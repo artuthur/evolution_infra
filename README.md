@@ -236,31 +236,14 @@ les mettre en place.
 
 # Équipes
 
-Les étudiants suivants ne peuvent pas être dans la même équipe :
-
-- halim.benia-latreche.etu
-- youssef.megahed.etu
-- younes.bensyed.etu
-- soufiane.kraba.etu
-
 ## [Équipe Mandarine (FAI)](equipe-mandarine/README.md)
 
 - Membres
 - DNS : `mandarine.iut`
-
-## [Équipe Afrique](equipe-afrique/README.md) : 
-
-- Membres
-- DNS : `afrique.iut`
 
 ## [Équipe Amérique](equipe-amerique/README.md) : 
 
 - Membres
 - DNS : `amerique.iut`
 
-## [Équipe Asie](equipe-asie/README.md) :
-
-- Membres
-- DNS : `asie.iut`
- 
 
