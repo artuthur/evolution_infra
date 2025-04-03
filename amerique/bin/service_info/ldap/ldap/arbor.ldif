@@ -1,0 +1,23 @@
+dn: ou=Informatique,dc=amerique,dc=iut
+objectClass: organizationalUnit
+ou: Informatique
+
+dn: ou=Utilisateurs,ou=Informatique,dc=amerique,dc=iut
+objectClass: organizationalUnit
+ou: Utilisateurs
+
+dn: ou=Production,dc=amerique,dc=iut
+objectClass: organizationalUnit
+ou: Production
+
+dn: ou=Utilisateurs,ou=Production,dc=amerique,dc=iut
+objectClass: organizationalUnit
+ou: Utilisateurs
+
+dn: ou=Administratif,dc=amerique,dc=iut
+objectClass: organizationalUnit
+ou: Administratif
+
+dn: ou=Utilisateurs,ou=Administratif,dc=amerique,dc=iut
+objectClass: organizationalUnit
+ou: Utilisateurs

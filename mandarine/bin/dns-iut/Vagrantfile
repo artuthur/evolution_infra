@@ -1,0 +1,10 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bookworm64"
+  config.vm.provision "shell", inline: "apt update -y"
+
+  config.vm.define "dnsiut" do |dnsiut|
+    dnsiut.vm.network "public_network", ip:"10.192.0.5", bridge: "enp3s0"
+    dnsiut.vm.hostname = "srv-dns-iut"
+    dnsiut.vm.provision "shell", path: "./dns-iut/dns-iut.sh"
+  end
+end

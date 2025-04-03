@@ -1,0 +1,10 @@
+Host srvnfs
+        Hostname 192.168.57.3 
+        User root
+        IdentityFile /vagrant/.vagrant/machines/srvnfs/virtualbox/private_key
+
+Host ldap
+        Hostname 192.168.57.4
+        User root
+        IdentityFile /vagrant/.vagrant/machines/ldap/virtualbox/private_key
+

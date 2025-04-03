@@ -1,0 +1,212 @@
+% Un thème Beamer pour des présentations, cours de Bruno BEAUFILS
+% Copyright (C) 2016-2019 Bruno BEAUFILS
+% This file is distributed under the terms of the WTFPL license.
+
+\def\filedate{2021/01/26}
+
+% Paramétrages génériques %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Des "jolies" polices de caractères
+\usepackage{lmodern}            % pour sf et tt
+\usepackage{fourier}            % pour rm
+\usepackage{bbm}                % pour les mathbbm
+
+%% Pour les dessins portables et fond de diapo
+\usepackage{tikz}
+\usepackage{pgfpages}
+
+%% Paramétrage hyperref
+\hypersetup{%
+  colorlinks,%
+  linkcolor=,%
+  urlcolor=blue}                % liens en bleu
+
+% Paramétrage Beamer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Options du thème
+
+%%% page en début de chaque partie ou non
+\newif\ifpartpage\partpagetrue
+\DeclareOptionBeamer{partpage}{\partpagetrue}
+\DeclareOptionBeamer{nopartpage}{\partpagefalse}
+
+%%% page en début de chaque section ou non
+\newif\ifsectionpage\sectionpagetrue
+\DeclareOptionBeamer{sectionpage}{\sectionpagetrue}
+\DeclareOptionBeamer{nosectionpage}{\sectionpagefalse}
+
+%%% page en début de chaque subsection ou non
+\newif\ifsubsectionpage\subsectionpagetrue
+\DeclareOptionBeamer{subsectionpage}{\subsectionpagetrue}
+\DeclareOptionBeamer{nosubsectionpage}{\subsectionpagefalse}
+
+%%% la section dans le pied de page
+\newif\ifsectioninfoot\sectioninfoottrue
+\DeclareOptionBeamer{sectioninfoot}{\sectioninfoottrue}
+\DeclareOptionBeamer{nosectioninfoot}{\sectioninfootfalse}
+
+%%% type de présentation
+\DeclareOptionBeamer{long}{%
+  \partpagetrue\sectionpagetrue\subsectionpagetrue%
+  \sectioninfoottrue}
+\DeclareOptionBeamer{court}{%
+  \partpagefalse\sectionpagefalse\subsectionpagefalse%
+  \sectioninfootfalse}
+
+\ProcessOptionsBeamer
+
+\mode<presentation>             % pour le mode présentation seulement
+
+%% Couleurs
+\usecolortheme{orchid}
+\setbeamercolor{alerted text}{fg=black}
+
+%% Polices de caractères
+\usefonttheme[stillsansseriflarge]{serif}
+\usefonttheme[onlylarge]{structurebold}
+\setbeamerfont{alerted text}{series=\bfseries}
+
+%% Traduction en français
+\uselanguage{french}
+\languagepath{french}
+\deftranslation[to=french]{Definition}{Définition}
+\deftranslation[to=french]{Example}{Exemple}
+\deftranslation[to=french]{Theorem}{Théorème}
+
+%% Adaptation des modèles
+
+%%% Image de fond pour la page de titre
+\newif\iftitlebackground\titlebackgroundfalse
+\newcommand{\titlebackground}[1]{\titlebackgroundtrue\def\inserttitlebackground{#1}}
+
+%%% Page de titre
+\defbeamertemplate*{title page}{bdefault}[1][]{%
+  % image de fond
+  \iftitlebackground
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[opacity=0.15,inner sep=0pt] at (current page.center){%
+      \includegraphics[width=\paperwidth,height=\paperheight]{\inserttitlebackground}%
+    };
+  \end{tikzpicture}
+  \fi
+  \vbox{}
+  \vfill
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%     
+    \end{beamercolorbox}%
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=8pt,center,#1]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip0.5em
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \end{centering}
+  \vfill
+%%%  \begin{beamercolorbox}[sep=8pt,wd=\linewidth,#1]{license}
+%%%    \usebeamerfont{license}\insertlicense
+%%%  \end{beamercolorbox}\vskip0.5em
+}
+\setbeamertemplate{title page}[bdefault]
+\renewcommand{\maketitle}[1][]{% pas de numéro sur la page de titre
+  \addtocounter{framenumber}{-1}\frame[plain,#1]{\titlepage}}
+
+%%% Sections dans la table des matières
+\setbeamertemplate{sections/subsections in toc}[sections numbered]
+
+%%% %%% Une page en début de chaque cours
+%%% \iflecturepage
+%%% \newif\ifnewlecture\newlecturetrue
+%%% \AtBeginLecture{%
+%%%   \ifbeamer@inlecture
+%%%   \ifnewlecture
+%%%   \begin{frame}
+%%%     \begin{centering}
+%%%       \begin{beamercolorbox}[sep=16pt,center]{part title}
+%%%         \usebeamerfont{part title}\insertlecture
+%%%       \end{beamercolorbox}
+%%%     \end{centering}
+%%%   \end{frame}
+%%%   \newlecturefalse
+%%%   \fi
+%%%   \fi
+%%% }
+%%% \fi
+
+%%% Une page simple devant chaque partie
+\ifpartpage
+\AtBeginPart{\frame{\partpage}}
+\setbeamertemplate{part page}{%
+  \begin{center}
+    \usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertpart
+  \end{center}
+}
+\fi
+
+%%% Une page simple (avec table des matières) devant chaque section
+\ifsectionpage
+\setbeamertemplate{section page}{\tableofcontents[currentsection]}
+\AtBeginSection[]{\frame{\sectionpage}}
+\fi
+
+%%% Une page simple (avec table des matières) devant chaque sous-section
+\ifsubsectionpage
+\setbeamertemplate{subsection page}{\tableofcontents[currentsubsection]}
+\AtBeginSubsection[]{\frame{\subsectionpage}}
+\fi
+
+%%% Type des continuations
+\setbeamertemplate{frametitle continuation}[from second][(suite)]
+
+%%% Styles des blocs
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamerfont{block title}{size={}}
+
+%%% Style des listes
+\setbeamertemplate{itemize item}[ball]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}[square]
+
+\setbeamertemplate{enumerate item}[ball]
+\setbeamertemplate{enumerate subitem}[circle]
+\setbeamertemplate{enumerate subsubitem}[square]
+
+%%% Des pieds de diapo simples
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex]{frametitle}
+      \usebeamerfont{date in head/foot}%
+      \hspace*{2ex}
+      \textbf{\insertshorttitle}%
+      \ifsectioninfoot \hspace*{3ex} \emph{\textmd{\insertsection}}\fi
+      \hfill
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{} % pas de navigation affichée
+
+%% D'autres paramètres Beamer en vrac
+
+%%% On découvre lentement les trucs cachés
+\setbeamercovered{dynamic}
+
+%%% Marges
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+% Local Variables:
+% time-stamp-active: t 
+% time-stamp-pattern: "5/\\filedate{%:y/%02m/%02d}$"
+% End:

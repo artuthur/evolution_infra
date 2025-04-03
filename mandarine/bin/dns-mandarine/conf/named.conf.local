@@ -1,0 +1,25 @@
+# Configuration en tant qu'esclave pour le domaine iut
+zone "iut" {
+    type slave;
+    file "/var/cache/bind/db.iut";
+    masters { 10.192.0.5; };  # Serveur maître .iut
+};
+
+# Zone inverse pour 10.192.0.0/24 (sous-réseau de mandarine)
+zone "10.in-addr.arpa" {
+    type slave;
+    file "/var/cache/bind/db.10-ptr";
+    masters { 10.192.0.5; };
+};
+
+# Zone maîtresse pour le sous-domaine mandarine.iut
+zone "mandarine.iut" {
+    type master;
+    file "/etc/bind/db.mandarine.iut";  # Fichier contenant les enregistrements DNS locaux
+};
+
+# Zone maîtresse inverse pour le sous-domaine mandarine.iut
+zone "0.192.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.0.192.10-ptr";
+};

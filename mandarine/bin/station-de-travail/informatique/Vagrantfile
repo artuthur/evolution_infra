@@ -1,0 +1,71 @@
+# -*- mode: ruby -*-
+
+Vagrant.configure("2") do |config|
+  
+    config.vm.box = "debian/bookworm64"
+  
+    config.vm.provider "virtualbox" do |vb|
+      vb.cpus = 4
+      vb.memory = 6144
+    end
+  
+    config.vm.provision "shell", inline: <<-SHELL
+      echo "deb http://deb.debian.org/debian/ bookworm main contrib non-free" >> /etc/apt/sources.list
+      echo "deb-src http://deb.debian.org/debian/ bookworm main contrib non-free" >> /etc/apt/sources.list
+      apt-get update -yq
+      apt-get upgrade -yq
+      apt-get install -y bzip2 rsync dump
+      echo "192.168.57.3 srvnfs" >> /etc/hosts
+      echo "192.168.57.4 ldap" >> /etc/hosts
+      echo "192.168.57.8 clientInfo" >> /etc/hosts
+      echo "192.168.57.9 backup" >> /etc/hosts
+    SHELL
+
+    
+    config.vm.provision "file", source: "./scriptLdap/change_password.sh", destination: "/home/vagrant/change_password.sh"
+    config.vm.provision "file", source: "./scriptLdap/create_user.sh", destination: "/home/vagrant/create_user.sh"
+    config.vm.provision "file", source: "./scriptLdap/delete_user.sh", destination: "/home/vagrant/delete_user.sh"
+    
+  
+    config.vm.provision "shell", inline: <<-SHELL
+      sudo mv /home/vagrant/change_password.sh /usr/local/sbin/change_password
+      sudo mv /home/vagrant/create_user.sh /usr/local/sbin/create_user
+      sudo mv /home/vagrant/delete_user.sh /usr/local/sbin/delete_user
+    SHELL
+  
+    $hosts = <<-EOF
+    ip r add 10.0.0.0/8 via 192.168.58.1 dev eth1
+    ip r add 192.168.56.0/22 via 192.168.58.1 dev eth1
+  
+    # Ajouter des routes spécifiques dans /etc/network/interfaces
+    sudo sed -i '/post-up ip route del default dev \\$IFACE || true/a \\    up ip route add 10.0.0.0/8 via 192.168.58.1 dev eth1\\n    up ip route add 192.168.56.0/22 via 192.168.58.1 dev eth1' /etc/network/interfaces
+    
+    # Mise à jour et installation des logiciels nécessaires
+    apt-get update -y && apt-get upgrade -y 
+    apt-get install -y xfce4 xfce4-goodies
+    apt-get install -y firefox-esr firefox-esr-l10n-fr
+    
+    # Configurer le clavier en français
+    sudo setxkbmap fr
+    sudo sed -i 's/XKBLAYOUT=\"\\w*\"/XKBLAYOUT=\"fr\"/g' /etc/default/keyboard
+    
+    # Redémarrage pour appliquer la configuration du clavier
+    /vagrant/provision-client.sh
+    /vagrant/client-nfs.sh
+    sudo reboot
+    EOF
+  
+    config.vm.define "espagne" do |espagne|
+      espagne.vm.network "public_network", bridge: "enp3s0"
+      espagne.vm.hostname = "client"
+      espagne.vm.provision "shell", run: "always", inline: $hosts
+  
+      # Interface graphique
+      espagne.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+        vb.gui = true
+      end
+    end
+  
+  end
+  

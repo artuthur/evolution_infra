@@ -1,0 +1,11 @@
+dn: dc=mand,dc=iut
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=users-administratif,dc=mand,dc=iut
+objectclass: organizationalunit
+ou: administratif
+
+dn: ou=users-informatique,dc=mand,dc=iut
+objectclass: organizationalunit
+ou: users-informatique

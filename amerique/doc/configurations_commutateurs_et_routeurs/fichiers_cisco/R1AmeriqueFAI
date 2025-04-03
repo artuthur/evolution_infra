@@ -1,0 +1,111 @@
+Current configuration : 1645 bytes
+!
+! Last configuration change at 10:26:44 UTC Wed Dec 11 2024
+!
+version 15.1
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1amerique
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+memory-size iomem 10
+crypto pki token default removal timeout 0
+!
+!         
+ip source-route
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+license udi pid CISCO881-K9 sn FCZ1509C4WH
+license boot module c880-data level advipservices
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!         
+!
+!
+!
+interface FastEthernet0
+!
+interface FastEthernet1
+!
+interface FastEthernet2
+!
+interface FastEthernet3
+ switchport access vlan 5
+!
+interface FastEthernet4
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet4.20
+ encapsulation dot1Q 20
+ ip address 10.64.0.1 255.255.0.0
+ ip nat outside
+ ip virtual-reassembly in
+!         
+interface Vlan1
+ no ip address
+!
+interface Vlan5
+ ip address 192.168.69.2 255.255.255.248
+ ip nat inside
+ ip virtual-reassembly in
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip nat inside source list 1 interface FastEthernet4.20 overload
+ip nat inside source static tcp 192.168.65.3 389 interface FastEthernet4.20 389
+ip route 0.0.0.0 0.0.0.0 10.64.0.254
+ip route 192.168.65.0 255.255.255.0 192.168.69.1
+ip route 192.168.66.0 255.255.255.0 192.168.69.1
+ip route 192.168.67.0 255.255.255.0 192.168.69.1
+ip route 192.168.68.0 255.255.255.248 192.168.69.1
+!
+logging esm config
+access-list 1 permit 192.168.65.0 0.0.0.255
+access-list 1 permit 192.168.66.0 0.0.0.255
+access-list 1 permit 192.168.67.0 0.0.0.255
+access-list 101 permit tcp any host 10.64.0.1 eq 389
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ no modem enable
+line aux 0
+line vty 0 4
+ login
+ transport input all
+!
+end

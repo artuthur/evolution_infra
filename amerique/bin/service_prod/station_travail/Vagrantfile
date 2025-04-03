@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  
+  # Ajout des routes
+  #config.vm.provision "shell", path: "../../conf_reseau/conf_routes_vagrant.sh"
+  # Provisionnement : installation des logiciels requis et autres
+  config.vm.provision "shell", path: "workstation.sh"
+  # Provisionnement : Configuration Cliente NFS
+  #config.vm.provision "shell", path: "../../service_info/nfs/client-conf-nfs-ldap.sh"
+
+  # Le réseau privé du service admin doit héberger a minima deux stations de travail (2 config.vm.define) avec naviguateur web (mozilla) et outil de gestion de mail (thunderbird)
+
+  config.vm.define "californie" do |californie|
+      californie.vm.network "public_network", type: "dhcp", mac: "080027123422", bridge: "enp3s0"
+      californie.vm.box = "debian/bookworm64"
+      californie.vm.hostname = "californie"
+
+      # Configuration VirtualBox pour chaque VM
+      californie.vm.provider "virtualbox" do |vb|
+        vb.gui = true                   # Active l'affichage graphique
+        vb.memory = "2048"              
+        vb.cpus = 2                     
+      end
+  end
+
+  config.vm.define "nevada" do |nevada|
+    nevada.vm.network "public_network", type: "dhcp", mac: "080027123423", bridge: "enp3s0" 
+    nevada.vm.box = "debian/bookworm64"
+    nevada.vm.hostname = "nevada"
+
+    # Configuration VirtualBox pour chaque VM
+    nevada.vm.provider "virtualbox" do |vb|
+      vb.gui = true                   # Active l'affichage graphique
+      vb.memory = "2048"              
+      vb.cpus = 2                     
+    end
+  end
+end

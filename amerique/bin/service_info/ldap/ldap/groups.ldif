@@ -1,0 +1,3 @@
+dn: ou=Groups,dc=amerique,dc=iut
+ou: Groups
+objectClass: organizationalUnit

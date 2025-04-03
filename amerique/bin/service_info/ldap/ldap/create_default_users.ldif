@@ -1,0 +1,84 @@
+dn: uid=jean.dupont,ou=Utilisateurs,ou=Administratif,dc=amerique,dc=iut
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: jean.dupont
+cn: Jean Dupont
+sn: Dupont
+givenName: Jean
+displayName: Jean Dupont
+uidNumber: 1001
+gidNumber: 3003
+homeDirectory: /home/Administratif/jean.dupont
+loginShell: /bin/bash
+userPassword: toto
+shadowLastChange: 19000
+gecos: Jean Dupont
+mail: jean.dupont@amerique.iut
+telephoneNumber: +1234567890
+
+
+
+dn: uid=arthur.debacq,ou=Utilisateurs,ou=Informatique,dc=amerique,dc=iut
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: arthur.debacq
+cn: Arthur Debacq
+sn: Debacq
+givenName: Arthur
+displayName: Arthur Debacq
+uidNumber: 1002
+gidNumber: 3001
+homeDirectory: /home/Informatique/arthur.debacq
+loginShell: /bin/bash
+userPassword: arthur
+shadowLastChange: 19000
+gecos: Arthur Debacq
+mail: arthur.debacq@amerique.iut
+telephoneNumber: +1234567790
+
+
+
+dn: uid=valentin.hebert,ou=Utilisateurs,ou=Informatique,dc=amerique,dc=iut
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: valentin.hebert
+cn: Valentin Hebert
+sn: Hebert
+givenName: Valentin
+displayName: Valentin Hebert
+uidNumber: 1003
+gidNumber: 3001
+homeDirectory: /home/Informatique/valentin.hebert
+loginShell: /bin/bash
+userPassword: valentin
+shadowLastChange: 19000
+gecos: Valentin Hebert
+mail: valentin.hebert@amerique.iut
+telephoneNumber: +1234557890
+
+
+
+dn: uid=younes.bensyed,ou=Utilisateurs,ou=Informatique,dc=amerique,dc=iut
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: younes.bensyed
+cn: Younes Bensyed
+sn: Bensyed
+givenName: Younes
+displayName: Younes Bensyed
+uidNumber: 1004
+gidNumber: 3001
+homeDirectory: /home/Informatique/younes.bensyed
+loginShell: /bin/bash
+userPassword: younes
+shadowLastChange: 19000
+gecos: Younes Bensyed
+mail: younes.bensyed@amerique.iut
+telephoneNumber: +1224567890
+
+
+

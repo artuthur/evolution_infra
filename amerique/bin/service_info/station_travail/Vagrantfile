@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  
+  # Ajout des routes
+  #config.vm.provision "shell", path: "../../conf_reseau/conf_routes_vagrant.sh"
+  # Provisionnement : installation des logiciels requis et autres
+  config.vm.provision "shell", path: "workstation.sh"
+  # Provisionnement : Configuration Cliente NFS
+  #config.vm.provision "shell", path: "../../service_info/nfs/client-conf-nfs-ldap.sh"
+
+  # Le réseau privé du service admin doit héberger a minima deux stations de travail (2 config.vm.define) avec naviguateur web (mozilla) et outil de gestion de mail (thunderbird)
+
+  config.vm.define "texas" do |texas|
+      texas.vm.network "public_network", type: "dhcp", mac: "080027123462", bridge: "enp3s0"
+      texas.vm.box = "debian/bookworm64"
+      texas.vm.hostname = "texas"
+
+      # Configuration VirtualBox pour chaque VM
+      texas.vm.provider "virtualbox" do |vb|
+        vb.gui = true                   # Active l'affichage graphique
+        vb.memory = "2048"              
+        vb.cpus = 2                     
+      end
+  end
+
+  config.vm.define "delaware" do |delaware|
+    delaware.vm.network "public_network", type: "dhcp", mac: "080027123463", bridge: "enp3s0" 
+    delaware.vm.box = "debian/bookworm64"
+    delaware.vm.hostname = "delaware"
+
+    # Configuration VirtualBox pour chaque VM
+    delaware.vm.provider "virtualbox" do |vb|
+      vb.gui = true                   # Active l'affichage graphique
+      vb.memory = "2048"              
+      vb.cpus = 2                     
+    end
+  end
+end

@@ -1,0 +1,197 @@
+dn: uid=jane.doe,ou=users-informatique,dc=mandarine,dc=iut
+uid: jane.doe
+cn: Jane Doe
+gecos: Jane Doe
+givenName: Jane
+sn: Doe
+uidNumber: 10001
+gidNumber: 100
+loginShell: /bin/bash
+homeDirectory: /home/informatique/jane.doe
+mail: jane.doe@mandarine.iut
+employeeNumber: 42133305
+employeeType: 100915773
+departmentNumber: {UAI:0597239Y}3BFQDV-124
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: admin123
+
+dn: uid=alice.smith,ou=users-administratif,dc=mandarine,dc=iut
+uid: alice.smith
+cn: Alice Smith
+gecos: Alice Smith
+givenName: Alice
+sn: Smith
+uidNumber: 10002
+gidNumber: 200
+loginShell: /bin/bash
+homeDirectory: /home/administratif/alice.smith
+mail: alice.smith@mandarine.iut
+employeeNumber: 42133306
+employeeType: 100915774
+departmentNumber: {UAI:0597239Y}3BFQDV-125
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: alicepass
+
+dn: uid=bob.brown,ou=users-administratif,dc=mandarine,dc=iut
+uid: bob.brown
+cn: Bob Brown
+gecos: Bob Brown
+givenName: Bob
+sn: Brown
+uidNumber: 10003
+gidNumber: 200
+loginShell: /bin/bash
+homeDirectory: /home/administratif/bob.brown
+mail: bob.brown@mandarine.iut
+employeeNumber: 42133307
+employeeType: 100915775
+departmentNumber: {UAI:0597239Y}3BFQDV-126
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: bobpassword
+
+dn: uid=charlie.johnson,ou=users-administratif,dc=mandarine,dc=iut
+uid: charlie.johnson
+cn: Charlie Johnson
+gecos: Charlie Johnson
+givenName: Charlie
+sn: Johnson
+uidNumber: 10004
+gidNumber: 200
+loginShell: /bin/bash
+homeDirectory: /home/administratif/charlie.johnson
+mail: charlie.johnson@mandarine.iut
+employeeNumber: 42133308
+employeeType: 100915776
+departmentNumber: {UAI:0597239Y}3BFQDV-127
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: charliepass
+
+dn: uid=dave.williams,ou=users-administratif,dc=mandarine,dc=iut
+uid: dave.williams
+cn: Dave Williams
+gecos: Dave Williams
+givenName: Dave
+sn: Williams
+uidNumber: 10005
+gidNumber: 200
+loginShell: /bin/bash
+homeDirectory: /home/administratif/dave.williams
+mail: dave.williams@mandarine.iut
+employeeNumber: 42133309
+employeeType: 100915777
+departmentNumber: {UAI:0597239Y}3BFQDV-128
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: dave123
+
+dn: uid=adham.berrakane,ou=users-informatique,dc=mandarine,dc=iut
+uid: adham.berrakane
+cn: Adham Berrakane
+gecos: Adham Berrakane
+givenName: Adham
+sn: Berrakane
+uidNumber: 10006
+gidNumber: 100
+loginShell: /bin/bash
+homeDirectory: /home/informatique/adham.berrakane
+mail: adham.berrakane@mandarine.iut
+employeeNumber: 42133310
+employeeType: 100915778
+departmentNumber: {UAI:0597239Y}3BFQDV-129
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: adham123
+
+dn: uid=arthur.keller,ou=users-informatique,dc=mandarine,dc=iut
+uid: arthur.keller
+cn: Arthur Keller
+gecos: Arthur Keller
+givenName: Arthur
+sn: Keller
+uidNumber: 10007
+gidNumber: 100
+loginShell: /bin/bash
+homeDirectory: /home/informatique/arthur.keller
+mail: arthur.keller@mandarine.iut
+employeeNumber: 42133311
+employeeType: 100915779
+departmentNumber: {UAI:0597239Y}3BFQDV-130
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: arthur123
+
+dn: uid=halim.benatia,ou=users-informatique,dc=mandarine,dc=iut
+uid: halim.benia-latreche
+cn: Halim Benia-latreche
+gecos: Halim Benia-latreche
+givenName: Halim
+sn: Benia-Latreche
+uidNumber: 10008
+gidNumber: 100
+loginShell: /bin/bash
+homeDirectory: /home/informatique/halim.benia-latreche
+mail: halim.benia-latreche@mandarine.iut
+employeeNumber: 42133312
+employeeType: 100915780
+departmentNumber: {UAI:0597239Y}3BFQDV-131
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: halim123
+
+dn: uid=gabriel.soufflet,ou=users-informatique,dc=mandarine,dc=iut
+uid: gabriel.robat
+cn: Gabriel Robat
+gecos: Gabriel Robat
+givenName: Gabriel
+sn: Robat
+uidNumber: 10009
+gidNumber: 100
+loginShell: /bin/bash
+homeDirectory: /home/informatique/gabriel.robat
+mail: gabriel.robat@mandarine.iut
+employeeNumber: 42133313
+employeeType: 100915781
+departmentNumber: {UAI:0597239Y}3BFQDV-132
+objectClass: top
+objectClass: person
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userPassword: gabriel123

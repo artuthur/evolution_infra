@@ -1,0 +1,21 @@
+options {
+    directory "/var/cache/bind";  // Répertoire de travail pour les fichiers de cache de Bind
+
+   
+    recursion yes;               // Active la récursivité (permet au serveur de répondre à des requêtes non locales)
+    allow-query { any; };  
+    allow-update { any; };      // Permet à n'importe quelle machine de poser des requêtes
+
+    allow-recursion { any; }; 
+   
+
+    // Configuration des serveurs DNS
+    forwarders {
+     10.192.0.5;
+     10.192.0.50;
+    };
+
+    dnssec-validation auto;    
+    listen-on { any; };   // Le serveur écoute uniquement sur l'adresse IP locale 10.64.0.2
+    listen-on-v6 { none; };      // Le serveur n'écoute pas sur les interfaces IPv6
+};

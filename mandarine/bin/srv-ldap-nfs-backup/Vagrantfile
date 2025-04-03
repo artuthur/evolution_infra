@@ -1,0 +1,87 @@
+# -*- mode: ruby -*-
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "debian/bookworm64"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 4
+    vb.memory = 6144
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "deb http://deb.debian.org/debian/ bookworm main contrib non-free" >> /etc/apt/sources.list
+    echo "deb-src http://deb.debian.org/debian/ bookworm main contrib non-free" >> /etc/apt/sources.list
+    apt-get update -yq
+    apt-get upgrade -yq
+    apt-get install -y bzip2 rsync dump
+    echo "192.168.57.3 srvnfs" >> /etc/hosts
+    echo "192.168.57.4 ldap" >> /etc/hosts
+    echo "192.168.57.8 clientInfo" >> /etc/hosts
+    echo "192.168.57.9 backup" >> /etc/hosts
+  SHELL
+
+  config.vm.define "srvnfs" do |srvnfs|
+    srvnfs.vm.hostname = "srvnfs"
+    srvnfs.vm.network "public_network", ip:"192.168.57.3", bridge:"enp3s0"
+    srvnfs.vm.provision "shell", inline: <<-SHELL
+      sudo ip route add 192.168.56.0/22 dev eth1
+      cp /home/vagrant/.ssh/authorized_keys /root/.ssh/authorized_keys
+    SHELL
+    srvnfs.vm.provision "shell", path: "./nfs-mand.sh"
+  end
+
+  config.vm.define "ldap" do |ldap|
+    ldap.vm.network "public_network", ip: "192.168.57.4" , bridge:"enp3s0"
+    ldap.vm.provision "shell", inline: <<-SHELL
+      sudo ip route add 192.168.56.0/22 dev eth1
+      cp /home/vagrant/.ssh/authorized_keys /root/.ssh/authorized_keys
+    SHELL
+    ldap.vm.provision "shell", path: "provision-ldap.sh"
+  end
+
+  config.vm.define "clientInfo" do |clientInfo|
+    clientInfo.vm.network "public_network", ip: "192.168.57.8" , bridge:"enp3s0"
+    clientInfo.vm.hostname = "clientInfo"
+    clientInfo.vm.provision "shell", inline: <<-SHELL
+      sudo ip route add 192.168.56.0/22 dev eth1
+    SHELL
+    clientInfo.vm.provision "shell", path: "provision-client.sh"
+    clientInfo.vm.provision "shell", path: "client-nfs.sh"
+  end
+
+  config.vm.define "backup" do |backup|
+    backup.vm.network "public_network", ip: "192.168.57.9", bridge:"enp3s0"
+    
+    backup.vm.provider "virtualbox" do |vb|
+      vb.customize ["createhd", "--filename", "./poste1_disk1.vdi", "--size", 20480]
+      vb.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", "./poste1_disk1.vdi"]
+    end
+    
+    backup.vm.provision "shell", inline: <<-SHELL
+      hostnamectl set-hostname backup
+      echo "127.0.0.1   localhost backup" | sudo tee -a /etc/hosts > /dev/null
+      cat /vagrant/backup/config > ~/.ssh/config
+      echo echo "0 23 * * 5 /vagrant/backup/save.sh" | crontab -
+      cp /home/vagrant/.ssh/authorized_keys /root/.ssh/authorized_keys
+      echo "deb http://deb.debian.org/debian/ bookworm main contrib non-free" >> /etc/apt/sources.list
+      echo "deb-src http://deb.debian.org/debian/ bookworm main contrib non-free" >> /etc/apt/sources.list
+      apt-get update -yq
+      apt-get upgrade -yq
+      apt-get install -y bzip2 rsync dump parted
+      /vagrant/backup/mount_disk.sh
+    SHELL
+  end
+  
+  config.vm.provision "file", source: "./scriptLdap/change_password.sh", destination: "/home/vagrant/change_password.sh"
+  config.vm.provision "file", source: "./scriptLdap/create_user.sh", destination: "/home/vagrant/create_user.sh"
+  config.vm.provision "file", source: "./scriptLdap/delete_user.sh", destination: "/home/vagrant/delete_user.sh"
+  
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo mv /home/vagrant/change_password.sh /usr/local/sbin/change_password
+    sudo mv /home/vagrant/create_user.sh /usr/local/sbin/create_user
+    sudo mv /home/vagrant/delete_user.sh /usr/local/sbin/delete_user
+  SHELL
+
+end

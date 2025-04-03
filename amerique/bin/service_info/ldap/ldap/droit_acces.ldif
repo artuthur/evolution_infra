@@ -1,0 +1,10 @@
+dn:olcDatabase={2}mdb,cn=config
+changetype:  modify
+replace: olcAccess
+olcAccess: {0}to attrs=userPassword,telephoneNumber,shadowLastChange,email
+    by self write
+    by anonymous auth
+    by * none
+olcAccess: {1}to *
+    by self write
+    by * read 

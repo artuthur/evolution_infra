@@ -1,0 +1,18 @@
+$TTL 604800
+@       IN      SOA     ns1.amerique.iut. admin.amerique.iut. (
+            2023101401 ; Serial (à mettre à jour à chaque modification)
+            604800     ; Refresh
+            86400      ; Retry
+            2419200    ; Expire
+            604800 )   ; Minimum TTL
+
+@       IN      NS      ns1.amerique.iut.
+@       IN      NS      ns2.amerique.iut.
+ns1     IN      A       10.64.0.2
+ns2     IN      A       10.64.0.5
+
+@       IN      A       10.64.0.2
+mail    IN      A       10.64.0.3
+web     IN      A       10.64.0.4
+
+@       IN      MX 10   mail.amerique.iut.

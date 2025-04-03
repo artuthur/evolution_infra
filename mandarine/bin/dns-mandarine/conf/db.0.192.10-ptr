@@ -1,0 +1,19 @@
+;
+; BIND reverse data file for 10.192.0.0/24
+;
+$TTL    604800
+@       IN      SOA     mandarine.iut. admin.mandarine.iut. (
+                              2023101203   ; Numéro de série (YYYYMMDDNN)
+                              604800       ; Rafraîchissement (7 jours)
+                              86400        ; Réessai (1 jour)
+                              2419200      ; Expiration (4 semaines)
+                              604800 )     ; Cache négatif TTL (1 semaine)
+
+; Serveur DNS principal de la zone inverse
+@       IN      NS      ns1.mandarine.iut.
+
+; Résolution inverse (PTR) pour les adresses IP
+2       IN      PTR     ns1.mandarine.iut.    ; Résolution inverse pour 10.192.0.2
+3       IN      PTR     mail.mandarine.iut.   ; Résolution inverse pour 10.192.0.3
+3       IN      PTR     web.mandarine.iut.    ; Alias pour 10.192.0.3 (serveur Web/Mail)
+6       IN      PTR     ns2.mandarine.iut.    ; Résolution inverse pour 10.192.0.6

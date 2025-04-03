@@ -1,0 +1,24 @@
+# Groupe Employer Info
+dn: cn=employerinfo,ou=Groups,dc=amerique,dc=iut
+objectClass: posixGroup
+objectClass: top
+cn: employerinfo
+gidNumber: 3001
+memberUid: younes.bensyed
+memberUid: arthur.debacq
+memberUid: valentin.hebert
+
+# Groupe Employe Production
+dn: cn=employerproduction,ou=Groups,dc=amerique,dc=iut
+objectClass: posixGroup
+objectClass: top
+cn: employeproduction
+gidNumber: 3002
+
+# Groupe Employer Administratif
+dn: cn=employeradministratif,ou=Groups,dc=amerique,dc=iut
+objectClass: posixGroup
+objectClass: top
+cn: employeradministratif
+gidNumber: 3003
+memberUid: jean.dupont

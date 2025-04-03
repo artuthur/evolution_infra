@@ -1,0 +1,16 @@
+options {
+    directory "/var/cache/bind";
+    
+    dnssec-validation auto;
+
+    listen-on-v6 { any; };
+
+    forwarders {
+        10.192.0.5;  # Adresse du maître pour la résolution externe
+    };
+
+    recursion yes;
+
+    allow-query { 192.168.57.0/24; 130.130.0.0/16; 192.168.58.0/24; 10.0.0.0/8; };
+    allow-query-cache { 192.168.57.0/24; 130.130.0.0/16; 192.168.58.0/24; 10.0.0.0/8; };
+};

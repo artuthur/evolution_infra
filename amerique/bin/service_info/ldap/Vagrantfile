@@ -1,0 +1,16 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "debian/bookworm64"
+
+  config.vm.define "ldap" do |ldap|
+    ldap.vm.hostname = "ldap"
+    ldap.vm.network "public_network", ip: "192.168.65.3", bridge: "enp3s0"
+    ldap.vm.provision "file", source: "./ldap", destination: "/home/vagrant/ldap"
+    ldap.vm.provision "shell", path: "provision_ldap.sh"
+    ldap.vm.provision "file", source: "provision_ldap.sh", destination: "/home/vagrant/provision_ldap.sh"
+    ldap.vm.provision "file", source: "create_user.sh", destination: "/home/vagrant/create_user.sh"
+    ldap.vm.provision "file", source: "destroy_user.sh", destination: "/home/vagrant/destroy_user.sh"
+    ldap.vm.provision "file", source: "change_password.sh", destination: "/home/vagrant/change_password.sh"
+  end
+
+end

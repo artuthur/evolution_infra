@@ -1,0 +1,25 @@
+;
+; Zone file for mandarine.iut
+;
+$TTL    604800
+@       IN      SOA     mandarine.iut. admin.mandarine.iut. (
+                              2023101501   ; Numéro de série (YYYYMMDDNN)
+                              604800       ; Rafraîchissement (7 jours)
+                              86400        ; Réessai (1 jour)
+                              2419200      ; Expiration (4 semaines)
+                              604800 )     ; Cache négatif TTL (1 semaine)
+
+; Serveurs DNS pour le domaine mandarine.iut
+@       IN      NS      ns1.mandarine.iut.
+@       IN      NS      ns2.mandarine.iut.
+
+; Enregistrements A pour les services de mandarine.iut
+ns1.mandarine.iut.      IN      A       10.192.0.2              ; Serveur DNS
+ns2.mandarine.iut.      IN      A       10.192.0.6              ;
+web.mandarine.iut.      IN      A       10.192.0.3              ; Serveur web (Apache)
+mail.mandarine.iut.     IN      A       10.192.0.3              ; Serveur mail
+autoconfig.             IN      CNAME   mandarine.iut.          ;
+mandarine.iut.          IN      TXT     "v=spf1 a mx -all"      ;
+
+; Enregistrement MX pour la gestion des mails
+@                       IN      MX      10 mail.mandarine.iut.

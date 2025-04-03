@@ -1,0 +1,9 @@
+dn: olcDatabase=mdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: mdb
+olcDbDirectory: /srv/ldap/ameriqueiut
+olcSuffix: dc=amerique,dc=iut
+olcRootDN: cn=admin,dc=amerique,dc=iut
+olcRootPW: azerty
+olcAccess: to * by dn="cn=admin,dc=amerique,dc=iut" write by * read

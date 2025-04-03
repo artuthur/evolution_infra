@@ -1,0 +1,35 @@
+Vagrant.configure("2") do |config|
+
+  # Configuration de la box Debian
+  config.vm.box = "debian/bookworm64"
+
+  ## Serveur Web hébergeant notre page d'accueil (amerique.iut)
+  config.vm.define "web" do |web|
+    web.vm.hostname = "web"
+    web.vm.network "public_network", ip: "10.64.0.4", mac: "080027123440", bridge: "enp3s0"
+    web.vm.provision "shell", path: "provision_web.sh"
+  end
+
+
+  ## Serveur DNS autorité pour amerique.iut
+  config.vm.define "dns" do |dns|
+    dns.vm.hostname = "dns"
+    dns.vm.network "public_network", ip: "10.64.0.2", mac: "080027123439", bridge: "enp3s0"
+    dns.vm.provision "file", source: "./dns", destination: "/home/vagrant/dns"
+    dns.vm.provision "shell", path: "provision_dns.sh"
+  end
+  
+  ## Serveur DNS secondaire pour le domaine amerique.iut
+  config.vm.define "dns2" do |dns2|
+    dns2.vm.hostname = "dns"
+    dns2.vm.network "public_network", ip: "10.64.0.5", mac: "080027123438", bridge: "enp3s0"
+    dns2.vm.provision "shell", path: "provision_dns2.sh"
+  end
+## Serveur mail
+    config.vm.define "mail" do |mail|
+        mail.vm.hostname = "mail"
+        mail.vm.network "public_network", ip:"10.64.0.3", mac: "080027123437", bridge: "enp3s0"
+        mail.vm.provision "shell", path: "provision_mail.sh"
+        end                    
+    end  
+

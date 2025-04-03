@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Bruno BEAUFILS" />
+  <title>Produire du texte proprement</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+
+h1
+{
+font-size: 1.5em;
+font-weight: bold;
+border-bottom: 1px solid #aaa;
+}
+h2
+{
+color: #333;
+font-size: 1.25em;
+margin-bottom: 1em;
+border-bottom: 1px dotted #aaa;
+}
+h3
+{
+color: #666;
+font-size: 105%;
+}
+@media screen
+{
+*
+{
+background: white;
+color: #2e2e2e;
+font-size: 13px;
+}
+body
+{
+color: #2e2e2e;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", "Free Sans", clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+width: 80%;
+margin: 2em auto 2em auto;
+padding: 0 2em 0 2em;
+border: 1px solid #e5e5e5;
+border-radius: 4px;
+line-height: 1.5;
+text-align: left;
+}
+a,
+a:link,
+a:visited,
+a:active {
+color: blue;
+text-decoration: none;
+}
+a:hover
+{
+text-decoration: none;
+text-shadow: 1px 1px 2px #ccf;
+}
+code, kbd, pre, samp
+{
+color:#c0341d;
+background-color:#fcedea;
+font-family:"Menlo", "DejaVu Sans Mono", "Liberation Mono", "Consolas", "Ubuntu Mono", "Courier New", "andale mono", "lucida console", monospace;
+font-size:1em;
+padding: 1px 3px;
+border-radius: 2px;
+}
+code
+{
+white-space: pre-wrap;
+word-break:keep-all;
+}
+pre
+{
+display: block;
+color:#2e2e2e;
+background-color:#fafafa;
+padding: 10px;
+border: 1px solid #e5e5e5;
+border-radius:3px;
+overflow: auto;
+word-break:break-all;
+word-wrap:break-word;
+}
+pre code
+{
+color: inherit;
+background-color:transparent;
+font-size: inherit;
+padding: 0;
+border-radius:0;
+white-space: pre-wrap;
+}
+table a code
+{
+position: relative;
+top:-2px;
+margin-right:3px;
+}
+ul
+{
+padding-left: 2em;
+}
+li p
+{
+margin: 0.3em;
+}
+ul li
+{
+list-style-type: disc;
+}
+#title-block-header {
+margin-bottom: 0.5em;
+}
+#title-block-header h1.title {
+font-size: 200%;
+font-weight: 800;
+border-bottom: 0;
+margin-bottom:.1em;
+}
+#title-block-header p.subtitle, #title-block-header p.author {
+margin-top:0;
+margin-bottom:0;
+font-size: 125%;
+font-weight: 400;
+border-left: 5px solid silver;
+padding-left: 1.5rem;
+font-style:italic;
+}
+}
+@media print
+{
+body
+{
+background: white;
+color: black;
+margin: 0;
+padding: 0;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+}
+h1
+{
+clear: both;
+}
+ul
+{
+padding-left: 2em;
+}
+pre
+{
+padding-left: 2em;
+border-left: 1.5px solid black;
+margin-left: 3em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Produire du texte proprement</h1>
+<p class="subtitle">documentation, présentation, gestion</p>
+<p class="author">Bruno BEAUFILS</p>
+</header>
+<h1 id="introduction">Introduction</h1>
+<ul>
+<li><p>Lors de vos différents projets vous allez devoir
+<strong>documenter</strong> vos travaux</p>
+<ul>
+<li>en rédigeant des <strong>procédures</strong> de mise en place ;</li>
+<li>en rédigeant des <strong>comptes-rendus</strong> des séances de
+travail ;</li>
+<li>en rédigeant des <strong>rapports</strong> et
+<strong>diaporamas</strong> de présentation de vos travaux.</li>
+</ul></li>
+<li><p>Ce travail devra <strong>obligatoirement</strong> être fait</p>
+<ul>
+<li>via des fichiers textes au format <strong>Markdown</strong></li>
+<li>gérés dans un dépôt <strong>Git</strong></li>
+</ul></li>
+<li><p>Lors de vos séances d’autonomie vous devez donc</p>
+<ul>
+<li>vous <strong>documenter</strong> sur le fonctionnement de ces
+outils</li>
+<li>vous <strong>familiariser</strong> à leur usage</li>
+</ul></li>
+<li><p><strong>La qualité de cette documentation est une partie
+importante des évaluations</strong></p></li>
+<li><p>Ce document vous donne quelques bases et des liens pour vous
+aider</p></li>
+<li><p>Il est disponible en</p>
+<ul>
+<li><a href="outils.html">HTML</a></li>
+<li><a href="outils.pdf">PDF</a></li>
+<li>Markdown dans <a href="outils.md">outils.md</a> (pratique pour
+comparer source et résultats)</li>
+</ul></li>
+</ul>
+<h1 id="outils">Outils</h1>
+<h2 id="base">Base</h2>
+<ul>
+<li><a href="https://daringfireball.net/projects/markdown"><strong>Markdown</strong></a>
+est un langage de <strong>balisage</strong> <em>simple</em>
+<ul>
+<li>facile à lire et écrire par les humains et les programmes</li>
+<li>qui permet de transformer un fichier balisé vers HTML ou PDF
+<em>automatiquement</em></li>
+<li>dont il existe plusieurs <a href="https://flavoredmarkdown.com/">variantes</a></li>
+</ul></li>
+<li><a href="https://pandoc.org"><strong>Pandoc</strong></a> est un
+logiciel de <strong>conversion</strong> de documents
+<ul>
+<li>il permet de convertir des fichiers d’un format de balisage à un
+autre</li>
+<li><a href="https://markup.rocks">markup.rocks</a> permet de manipuler
+du texte directement via Pandoc</li>
+</ul></li>
+<li><a href="https://git-scm.com/"><strong>Git</strong></a> est un outil
+de <strong>contrôle de version</strong> distribué qui permet
+<ul>
+<li>de suivre l’historique des modifications d’un ensemble de
+fichiers</li>
+<li>de gérer des versions différentes en parallèle</li>
+<li>de travailler à plusieurs sur les mêmes fichiers</li>
+<li>de mettre en place des modes de collaborations différents</li>
+</ul></li>
+<li><a href="https://www.gnu.org/software/make/manual/make.html"><strong>make</strong></a>
+est un logiciel <strong>d’automatisation de la construction</strong> de
+fichiers
+<ul>
+<li>qui gère les dépendances temporelles entre fichiers</li>
+<li>dans lequel on déclare les règles de construction par des fichiers
+texte (<code>makefile</code>)</li>
+<li>historiquement plutôt utilisé pour le développement logiciel
+(notamment en C)</li>
+<li>très adapté à tous projets devant gérer des dépendances entre
+fichiers</li>
+</ul></li>
+</ul>
+<h2 id="autres-outils-utiles">Autres outils utiles</h2>
+<ul>
+<li><a href="https://orgmode.org"><strong>Org mode</strong></a> est un
+mode <a href="https://www.gnu.org/software/emacs/">Emacs</a> d’édition
+de documents en texte simple pour
+<ul>
+<li>prendre des notes,</li>
+<li>gérer des listes de tâches</li>
+<li>planifier des projets</li>
+<li>rédiger des documents ou des calepins de calculs</li>
+<li>faire de la programmation littéraire</li>
+<li>publier sous divers formats (HTML, PDF, etc.)</li>
+</ul></li>
+<li><a href="https://manpages.bsd.lv/mdoc.html"><strong>Mdoc</strong></a> est
+le language d’écriture de pages de manuel UNIX en texte simple
+<ul>
+<li><a href="https://manpages.debian.org/man.7.html">man(7)</a></li>
+<li><a href="https://manpages.debian.org/mandoc_mdoc.7.html">mdoc(7)</a></li>
+<li><a href="https://manpages.debian.org/groff.7.html">groff(7)</a></li>
+</ul></li>
+</ul>
+<h1 id="markdown">Markdown</h1>
+<h2 id="syntaxe-générale">Syntaxe générale</h2>
+<p>La syntaxe de Markdown permet</p>
+<ul>
+<li><p>de donner une <strong>structure</strong> au document</p>
+<ul>
+<li><strong>paragraphes</strong> : séparation par des lignes vides</li>
+<li><strong>titres de différents niveaux</strong> : lignes débutant par
+des <code>#</code></li>
+<li><strong>listes libres</strong> : indentation de paragraphe avec
+lignes débutant par des <code>-</code> ou des <code>*</code></li>
+<li><strong>listes ordonnées</strong> : indentation avec lignes débutant
+par des <code>1.</code></li>
+<li><strong>blocs de citations</strong> : paragraphes préfixés par
+“<code>&gt;</code>”</li>
+<li><strong>blocs de codes</strong> : paragraphes indentés par 4
+espaces</li>
+</ul></li>
+<li><p>d’inclure des éléments de mise en forme
+<strong>logique</strong></p>
+<p><em>emphase</em>, <strong>accentuation forte</strong> et
+<code>code</code></p></li>
+<li><p>d’inclure des liens vers des URL</p>
+<ul>
+<li><a href="https://daringfireball.net/projects/markdown" class="uri">https://daringfireball.net/projects/markdown</a></li>
+<li><a href="https://commonmark.org">CommonMark</a></li>
+<li><a href="https://pandoc.org/MANUAL.html#pandocs-markdown">Markdown à
+la sauce Pandoc</a></li>
+<li><a href="https://gitlab.com/help/user/markdown.md">Markdown à la
+sauce GitLab</a></li>
+<li><a href="https://guides.github.com/features/mastering-markdown">Markdown à
+la sauce Github</a></li>
+</ul></li>
+</ul>
+<p>Elle est décrite en détails ailleurs (cf liens de cette diapo)</p>
+<h2 id="images">Images</h2>
+<p><code>![Texte alternatif pour HTML](https://www.lifl.fr/~beaufils/logos/logo-markdown.png){ width=50% }</code></p>
+<figure>
+<img role="img" aria-label="Texte alternatif pour HTML" src="data:image/png;base64,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" style="width:50.0%" alt="Texte alternatif pour HTML" />
+<figcaption aria-hidden="true">Texte alternatif pour HTML</figcaption>
+</figure>
+<h2 id="tableaux">Tableaux</h2>
+<ul>
+<li>Plusieurs supports de tableaux accessibles via le <a href="https://pandoc.org/MANUAL.html#tables">Markdown de pandoc</a></li>
+<li>Celui utilisé par GitLab et GitHub est très basique
+<ul>
+<li>défini par <code>pipe_tables</code> dans <code>pandoc</code></li>
+</ul></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>Outil</strong></th>
+<th><strong>Utilité</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pandoc</code></td>
+<td>conversion de formats</td>
+</tr>
+<tr>
+<td><code>pdflatex</code></td>
+<td>composition de LaTeX en PDF</td>
+</tr>
+<tr>
+<td><code>beamer</code></td>
+<td>jeux de balisage LaTeX pour la composition de présentation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="code-source">Code source</h2>
+<p>Le code source peut être coloré en fonction de la syntaxe du
+language</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;Hello world !</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h1 id="pandoc">pandoc</h1>
+<ul>
+<li><a href="https://pandoc.org">Pandoc</a> est un logiciel de
+conversion de documents
+<ul>
+<li>il permet de convertir des fichiers d’un format de balisage à un
+autre</li>
+<li>il définit une extension de Markdown : <a href="https://pandoc.org/MANUAL.html#pandocs-markdown">Pandoc’s
+Markdown</a></li>
+</ul></li>
+<li>Options importantes
+<ul>
+<li><code>-f</code> : format du fichier de départ</li>
+<li><code>-t</code> : format du fichier de sortie</li>
+<li><code>-o</code> : nom du fichier de sortie</li>
+</ul></li>
+<li>Plus de détails
+<ul>
+<li><a href="https://manpages.debian.org/bullseye/pandoc/pandoc.1.en.html"><code>pandoc(1)</code></a></li>
+<li><a href="https://pandoc.org/MANUAL.html">Documentation de la
+dernière version de Pandoc</a></li>
+</ul></li>
+</ul>
+<h1 id="liens">Liens</h1>
+<h2 id="markdown-1">Markdown</h2>
+<ul>
+<li><a href="https://www.markdowntutorial.com/fr">Markdown Tutorial</a>
+: un tutoriel sur la syntaxe Markdown</li>
+<li><a href="https://www.markdownguide.org">Markdown guide</a> : un
+guide de référence sur Markdown</li>
+<li>Éditer du Markdown
+<ul>
+<li><a href="https://jblevins.org/projects/markdown-mode">sous
+Emacs</a></li>
+<li><a href="https://code.visualstudio.com/Docs/languages/markdown">sous
+VSCode</a></li>
+</ul></li>
+</ul>
+<h2 id="git">Git</h2>
+<ul>
+<li><a href="https://perso.liris.cnrs.fr/pierre-antoine.champin/enseignement/intro-git/slides/index.html#1">Introduction
+à Git</a> : cours et exercices
+<ul>
+<li>par Pierre-Antoine CHAMPIN (IUT / Université de Lyon 1)</li>
+</ul></li>
+<li><a href="https://learngitbranching.js.org/?locale=fr_FR">Learning
+Git Branching</a> : apprendre à gérer des branches</li>
+<li><a href="https://git-scm.com/book/fr/v2">Pro Git</a> : le livre de
+référence
+<ul>
+<li>Comment faire pour
+<ul>
+<li><a href="https://git-scm.com/book/fr/v2//Les-tripes-de-Git-Les-variables-d’environnement#_création_de_commits">identifier
+l’auteur d’un commit</a></li>
+<li><a href="https://git-scm.com/docs/gitignore/fr">empêcher le suivi de
+certains fichiers</a></li>
+</ul></li>
+</ul></li>
+<li><a href="https://ohshitgit.com">Oh Shit, Git !?!</a></li>
+<li><a href="https://wildlyinaccurate.com/a-hackers-guide-to-git">A
+hacker’s guide to Git</a></li>
+<li>Git Commit
+<ul>
+<li><a href="https://cbea.ms/git-commit">How to Write a Git Commit
+Message</a></li>
+<li><a href="https://www.baeldung.com/ops/git-commit-messages">Best
+Practices for Git Commit Message</a></li>
+<li><a href="https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/">How
+to Write Better Git Commit Messages – A Step-By-Step Guide</a></li>
+</ul></li>
+</ul>
+<h2 id="make">Make</h2>
+<ul>
+<li><a href="make.html">Une présentation courte de make</a>
+<ul>
+<li>par Christophe RIPPERT (Université de Grenoble Alpes)</li>
+</ul></li>
+<li><a href="https://www.gnu.org/software/make/manual/make.html#Overview">Le
+manuel de GNU Make</a></li>
+<li><a href="https://makefiletutorial.com/">Makefile tutorial</a></li>
+</ul>
+</body>
+</html>

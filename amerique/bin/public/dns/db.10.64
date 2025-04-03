@@ -1,0 +1,15 @@
+$TTL 604800
+@       IN      SOA     ns1.amerique.iut. admin.amerique.iut. (
+            2023101401 ; Serial
+            604800     ; Refresh
+            86400      ; Retry
+            2419200    ; Expire
+            604800 )   ; Minimum TTL
+
+@       IN      NS      ns1.amerique.iut.
+@       IN      NS      ns2.amerique.iut.
+
+2       IN      PTR     ns1.amerique.iut.
+5       IN      PTR     ns2.amerique.iut.
+3       IN      PTR     mail.amerique.iut.
+4       IN      PTR     web.amerique.iut.

@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  
+  # Ajout des routes
+  #config.vm.provision "shell", path: "../../conf_reseau/conf_routes_vagrant.sh"
+  # Provisionnement : installation des logiciels requis et autres
+  config.vm.provision "shell", path: "workstation.sh"
+  # Provisionnement : Configuration Cliente NFS
+  #config.vm.provision "shell", path: "../../service_info/nfs/client-conf-nfs-ldap.sh"
+
+  # Le réseau privé du service admin doit héberger a minima deux stations de travail (2 config.vm.define) avec naviguateur web (mozilla) et outil de gestion de mail (thunderbird)
+
+  config.vm.define "floride" do |floride|
+      floride.vm.network "public_network", type: "dhcp", mac: "080027123412", bridge: "enp3s0"
+      floride.vm.box = "debian/bookworm64"
+      floride.vm.hostname = "floride"
+
+      # Configuration VirtualBox pour chaque VM
+      floride.vm.provider "virtualbox" do |vb|
+        vb.gui = true                   # Active l'affichage graphique
+        vb.memory = "2048"              
+        vb.cpus = 2                     
+      end
+  end
+
+  config.vm.define "washington" do |washington|
+    washington.vm.network "public_network", type: "dhcp", mac: "080027123413", bridge: "enp3s0" 
+    washington.vm.box = "debian/bookworm64"
+    washington.vm.hostname = "washington"
+
+    # Configuration VirtualBox pour chaque VM
+    washington.vm.provider "virtualbox" do |vb|
+      vb.gui = true                   # Active l'affichage graphique
+      vb.memory = "2048"              
+      vb.cpus = 2                     
+    end
+  end
+end

@@ -1,0 +1,11 @@
+zone "iut" {
+    type slave;
+    masters { 10.192.0.5; }; # Adresse du DNS maître
+    file "/var/cache/bind/db.iut"; # Fichier local de sauvegarde
+};
+
+zone "5.0.192.10.in-addr.arpa" {
+    type slave;
+    masters { 10.192.0.5; };
+    file "/var/cache/bind/db.10-ptr";
+};

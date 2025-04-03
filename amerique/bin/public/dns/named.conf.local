@@ -1,0 +1,24 @@
+zone "amerique.iut" {
+    type master ;
+    file "/etc/bind/db.amerique.iut";
+    notify yes;
+    allow-transfer { 10.64.0.5; }; # Adresse IP du serveur secondaire
+    also-notify { 10.64.0.5; };     # IP du serveur secondaire
+};
+zone "0.64.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.10.64";
+    notify yes;
+    allow-transfer { 10.64.0.5; }; # Adresse IP du serveur secondaire
+    also-notify { 10.64.0.5; };     # IP du serveur secondaire
+};
+zone "iut" {
+    type slave;
+    file "/var/cache/bind/db.iut";
+    masters { 10.192.0.5; };
+};
+zone "10.in-addr.arpa" {
+   type slave;
+   file "/var/cache/bind/db.10-ptr";
+   masters {10.192.0.5;};
+};

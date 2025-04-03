@@ -1,0 +1,64 @@
+Vagrant.configure("2") do |config|
+  # Définition d'une machine LDAP client
+  config.vm.define "ldap-client" do |client|
+    client.vm.box = "debian/bookworm64"
+    client.vm.hostname = "ldap-client"
+    client.vm.network "private_network", ip: "192.168.65.4", bridge: "enp3s0"
+
+    # Script de provisionnement pour configurer le client LDAP
+    client.vm.provision "shell", inline: <<-SHELL
+      # Mise à jour des paquets
+      apt-get update
+
+      # Préconfiguration des options debconf pour LDAP
+      debconf-set-selections <<EOF
+libnss-ldap libnss-ldap/override boolean true
+libnss-ldap libnss-ldap/rootbinddn string cn=admin,dc=amerique,dc=iut
+libnss-ldap libnss-ldap/dbrootlogin boolean true
+libnss-ldap libnss-ldap/binddn string cn=admin,dc=amerique,dc=iut
+libnss-ldap libnss-ldap/bindpw password_admin
+libnss-ldap libnss-ldap/confperm boolean false
+libpam-runtime libpam-runtime/profiles multiselect unix, ldap
+libpam-ldap libpam-ldap/binddn string cn=admin,dc=amerique,dc=iut
+libpam-ldap libpam-ldap/bindpw password_admin
+libpam-ldap libpam-ldap/rootbinddn string cn=admin,dc=amerique,dc=iut
+libpam-ldap libpam-ldap/rootbindpw password_admin
+libpam-ldap libpam-ldap/dblogin boolean true
+ldap-auth-config ldap-auth-config/ldap-server string ldap://192.168.65.3
+ldap-auth-config ldap-auth-config/ldap-base string dc=amerique,dc=iut
+ldap-auth-config ldap-auth-config/ldap-binddn string cn=admin,dc=amerique,dc=iut
+ldap-auth-config ldap-auth-config/ldap-bindpw password_admin
+ldap-auth-config ldap-auth-config/dbrootlogin boolean true
+ldap-auth-config ldap-auth-config/rootbindpw password_admin
+EOF
+
+      # Installation des paquets nécessaires
+      DEBIAN_FRONTEND=noninteractive apt-get install -y ldap-utils libnss-ldap libpam-ldap nscd
+
+      # Configuration de /etc/nslcd.conf
+      cat <<EOT > /etc/nslcd.conf
+uri ldap://192.168.65.3
+base dc=amerique,dc=iut
+binddn cn=admin,dc=amerique,dc=iut
+bindpw azerty
+EOT
+
+      # Configuration de /etc/nsswitch.conf
+      sed -i 's/^passwd:.*/passwd:     files ldap/' /etc/nsswitch.conf
+      sed -i 's/^group:.*/group:      files ldap/' /etc/nsswitch.conf
+      sed -i 's/^shadow:.*/shadow:     files ldap/' /etc/nsswitch.conf
+
+      # Ajout de pam_mkhomedir pour créer automatiquement le répertoire utilisateur
+      if ! grep -q "pam_mkhomedir.so" /etc/pam.d/common-session; then
+        echo "session required pam_mkhomedir.so skel=/etc/skel umask=0022" >> /etc/pam.d/common-session
+      fi
+
+      # Redémarrage des services nécessaires
+      systemctl restart nslcd
+      systemctl restart nscd
+
+      # Test de la configuration LDAP
+      sudo getent passwd jean.dupont || echo "Erreur : impossible de récupérer l'utilisateur LDAP jean.dupont"
+    SHELL
+  end
+end

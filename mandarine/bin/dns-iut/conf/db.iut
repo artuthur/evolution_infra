@@ -1,0 +1,55 @@
+;
+; Zone file for iut
+;
+$TTL    604800         ; Time to Live par défaut
+@       IN      SOA     ns1.iut. admin.iut. (
+                              2024112502    ; Numéro de série (YYYYMMDDNN)
+                              604800       ; Rafraîchissement (7 jours)
+                              86400        ; Réessai (1 jour)
+                              2419200      ; Expiration (4 semaines)
+                              604800 )     ; Cache négatif TTL (1 semaine)
+
+; Serveurs DNS pour le domaine iut
+@       IN      NS      ns1.iut.          ; Serveur DNS principal
+@	    IN	    NS	    ns2.iut.
+@       IN      NS      afrique.iut.      ; Serveur secondaire Afrique
+@       IN      NS      amerique.iut.     ; Serveur secondaire Amérique
+@       IN      NS      asie.iut.         ; Serveur secondaire Asie
+@       IN      NS      mandarine.iut.    ; Serveur secondaire Mandarine
+
+; Enregistrements A pour les serveurs DNS
+ns1.iut.       IN      A      10.192.0.5          ; IP du serveur DNS maître
+ns2.iut.       IN      A      10.192.0.50         ;
+afrique        IN      A      10.0.0.2            ; IP du DNS secondaire Afrique
+amerique       IN      A      10.64.0.2           ; IP du DNS secondaire Amérique
+asie           IN      A      10.128.0.2          ; IP du DNS secondaire Asie
+mandarine      IN      A      10.192.0.2          ; IP du DNS secondaire Mandarine
+
+; Délégation pour les sous-domaines
+afrique.iut.    IN  NS      ns1.afrique.iut.  ; Serveur DNS principal pour afrique.iut
+afrique.iut.    IN  NS      ns2.afrique.iut.  ; Serveur DNS secondaire pour afrique.iut
+
+amerique.iut.   IN  NS      ns1.amerique.iut. ; Serveur DNS principal pour amerique.iut
+amerique.iut.   IN  NS      ns2.amerique.iut. ; Serveur DNS secondaire pour amerique.iut
+
+asie.iut.       IN  NS      ns1.asie.iut.     ; Serveur DNS principal pour asie.iut
+asie.iut.       IN  NS      ns2.asie.iut.     ; Serveur DNS secondaire pour asie.iut
+
+mandarine.iut.  IN  NS      ns1.mandarine.iut.; Serveur DNS principal pour mandarine.iut
+mandarine.iut.  IN  NS      ns2.mandarine.iut.; Serveur DNS secondaire pour mandarine.iut
+
+; Enregistrements A pour les serveurs DNS des sous-domaines
+ns1.afrique.iut.    IN  A  10.0.0.2     ; Serveur DNS principal Afrique
+ns2.afrique.iut.    IN  A  10.0.0.20    ; Serveur DNS secondaire Afrique
+
+ns1.amerique.iut.   IN  A  10.64.0.2    ; Serveur DNS principal Amérique
+ns2.amerique.iut.   IN  A  10.64.0.5   ; Serveur DNS secondaire Amérique
+
+ns1.asie.iut.       IN  A  10.128.0.2   ; Serveur DNS principal Asie
+ns2.asie.iut.       IN  A  10.128.0.5   ; Serveur DNS secondaire Asie
+
+ns1.mandarine.iut.  IN  A  10.192.0.2   ; Serveur DNS principal Mandarine
+ns2.mandarine.iut.  IN  A  10.192.0.6   ; Serveur DNS secondaire Mandarine
+
+; Optionnel : enregistrement pour le domaine iut lui-même
+@          IN      A      10.192.0.5          ; Le domaine iut pointe vers ns1.iut

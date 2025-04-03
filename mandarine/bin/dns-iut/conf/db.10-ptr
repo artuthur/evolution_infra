@@ -1,0 +1,24 @@
+;
+; Zone PTR file for iut
+;
+$TTL 604800
+@       IN      SOA     ns1.iut. admin.iut. (
+                              2024112503    ; Numéro de série
+                              604800        ; Rafraîchissement
+                              86400         ; Réessai
+                              2419200       ; Expiration
+                              604800 )      ; Cache négatif TTL
+
+@        IN      NS      ns1.iut.
+@        IN      NS      ns2.iut.
+
+2.0.0       IN      PTR     ns1.afrique.iut.
+20.0.0      IN      PTR     ns2.afrique.iut.
+2.0.64      IN      PTR     ns1.amerique.iut.
+5.0.64      IN      PTR     ns2.amerique.iut.
+2.0.128     IN      PTR     ns1.asie.iut.
+5.0.128     IN      PTR     ns2.asie.iut.
+2.0.192     IN      PTR     ns1.mandarine.iut.
+6.0.192     IN      PTR     ns2.mandarine.iut.
+5.0.192     IN      PTR     ns2.iut.
+50.0.192    IN      PTR     ns2.iut.

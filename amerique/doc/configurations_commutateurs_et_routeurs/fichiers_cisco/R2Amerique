@@ -1,0 +1,121 @@
+Current configuration : 1621 bytes
+!
+! Last configuration change at 09:54:35 UTC Wed Dec 11 2024
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2amerique
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+!
+!
+!
+memory-size iomem 10
+!
+!         
+ip source-route
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+license udi pid CISCO881-SEC-K9 sn FCZ1607939U
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+interface FastEthernet0
+ switchport access vlan 15
+ !
+!
+interface FastEthernet1
+ !
+!
+interface FastEthernet2
+ !
+!
+interface FastEthernet3
+ switchport access vlan 5
+ !
+!
+interface FastEthernet4
+ no ip address
+ duplex auto
+ speed auto
+ !
+!
+interface FastEthernet4.10
+ encapsulation dot1Q 10
+ ip address 192.168.65.254 255.255.255.0
+ ip helper-address 192.168.65.10
+ ip nat inside
+ ip virtual-reassembly
+!
+interface FastEthernet4.11
+ encapsulation dot1Q 11
+ ip address 192.168.66.254 255.255.255.0
+ ip helper-address 192.168.65.10
+ ip nat inside
+ ip virtual-reassembly
+!
+interface FastEthernet4.12
+ encapsulation dot1Q 12
+ ip address 192.168.67.254 255.255.255.0
+ ip helper-address 192.168.65.10
+ ip nat inside
+ ip virtual-reassembly
+!
+interface Vlan1
+ no ip address
+ !
+!
+interface Vlan5
+ ip address 192.168.68.1 255.255.255.248
+ ip nat inside
+ ip virtual-reassembly
+ !
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip route 10.0.0.0 255.0.0.0 192.168.68.2
+ip route 192.168.69.0 255.255.255.248 192.168.68.2
+!
+!
+!
+!
+!
+!
+control-plane
+ !
+!
+!
+line con 0
+ no modem enable
+line aux 0
+line vty 0 4
+ login
+!
+scheduler max-task-time 5000
+end

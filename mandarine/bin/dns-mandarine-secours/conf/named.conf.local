@@ -1,0 +1,11 @@
+zone "mandarine.iut" {
+    type slave;
+    file "/var/cache/bind/db.mandarine.iut";
+    masters { 10.192.0.2; };  # Adresse IP de ton DNS principal
+};
+
+zone "0.192.10.in-addr.arpa" {
+    type slave;
+    file "/var/cache/bind/db.2.0.192.10-ptr";
+    masters { 10.192.0.2; };  # Adresse IP de ton DNS principal
+};
