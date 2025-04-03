@@ -1,14 +1,5 @@
 # Équipe MANDARINE (FAI)
 
-## Introduction
-L'équipe Mandarine est composée des membres suivants :
-- **Halim BENIA LATRECHE**
-- **Adham BERRAKANE**
-- **Arthur KELLER**
-- **Gabriel ROBAT**
-
----
-
 ## Le Projet 
 
 ### Tâches éxécutées : 
