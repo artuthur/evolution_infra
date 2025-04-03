@@ -13,7 +13,7 @@ L'équipe Mandarine est composée des membres suivants :
 
 ### Tâches éxécutées : 
 
-#### Halim BENIA-LATECHE
+#### Etudiant A
 
 - Mise en Place de l'infrastructure réseau 
 - DHCP
@@ -23,7 +23,7 @@ L'équipe Mandarine est composée des membres suivants :
 - Documentations 
 - Aide générale
 
-#### Adham BERRAKANE
+#### Etudiant B
 
 - Mise en Place de l'infrastructure réseau 
 - Serveur NFS 
@@ -35,7 +35,7 @@ L'équipe Mandarine est composée des membres suivants :
 - Automatisation du Déploiement
 - Documentations 
 
-#### Arthur KELLER
+#### Etudiant C
 
 - Mise en Place de l'infrastructure réseau 
 - DNS iut
@@ -53,7 +53,7 @@ L'équipe Mandarine est composée des membres suivants :
 - Stations de travail
 - Aide générale
 
-#### Gabriel ROBAT
+#### Etudiant D
 
 - Mise en Place de l'infrastructure réseau 
 - Premiet jet LDAP
